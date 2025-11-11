@@ -103,7 +103,7 @@ const Index = () => {
         <VideoContentSection
           title1="Guest Handbook"
           subtitle1="Your passport to belonging. This city companion has everything you need to explore African cities with confidence, from key phrases to etiquette and safe spots."
-          video1="/public//videos/HANDBOOK.mp4"
+          video1="/videos/HANDBOOK.mp4"
           listItems={[
             "Navigate easily",
             "Connect authentically",
