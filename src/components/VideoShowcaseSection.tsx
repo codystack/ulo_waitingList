@@ -1,98 +1,98 @@
-import React, { useRef, useState, useEffect } from 'react'
-import { Play } from 'lucide-react'
-import { HeroContent } from '@/types'
+import React, { useRef, useState, useEffect } from "react";
+import { Play } from "lucide-react";
+import { HeroContent } from "@/types";
 
 interface VideoShowcaseSectionProps {
-  heroContent: HeroContent
+  heroContent: HeroContent;
 }
 
-const THUMBNAIL_URL =
-  'https://res.cloudinary.com/dfcsaxtru/video/upload/q_55/v1753103917/THUMBNAIL_rkh4m3.mp4' 
+// const THUMBNAIL_URL =
+//   'https://res.cloudinary.com/dfcsaxtru/video/upload/q_55/v1753103917/THUMBNAIL_rkh4m3.mp4'
 
 const VideoShowcaseSection: React.FC<VideoShowcaseSectionProps> = ({
-  heroContent
+  heroContent,
 }) => {
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
-  const [isFullscreen, setIsFullscreen] = useState(false)
-  const [showFullVideo, setShowFullVideo] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showFullVideo, setShowFullVideo] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Handle fullscreen changes
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement)
-    }
+      setIsFullscreen(!!document.fullscreenElement);
+    };
 
-    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
     return () =>
-      document.removeEventListener('fullscreenchange', handleFullscreenChange)
-  }, [])
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
 
   // Handle escape key for fullscreen exit
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isFullscreen) {
-        exitFullscreen()
+      if (event.key === "Escape" && isFullscreen) {
+        exitFullscreen();
       }
-    }
+    };
 
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isFullscreen])
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isFullscreen]);
 
   // Sync video playing state with actual video state
   useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
+    const video = videoRef.current;
+    if (!video) return;
 
-    const handlePlay = () => setIsVideoPlaying(true)
-    const handlePause = () => setIsVideoPlaying(false)
+    const handlePlay = () => setIsVideoPlaying(true);
+    const handlePause = () => setIsVideoPlaying(false);
 
-    video.addEventListener('play', handlePlay)
-    video.addEventListener('pause', handlePause)
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("pause", handlePause);
 
     return () => {
-      video.removeEventListener('play', handlePlay)
-      video.removeEventListener('pause', handlePause)
-    }
-  }, [])
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("pause", handlePause);
+    };
+  }, []);
 
   const handlePlayClick = () => {
-    setShowFullVideo(true)
+    setShowFullVideo(true);
     setTimeout(() => {
-      videoRef.current?.play()
-      setIsVideoPlaying(true)
-    }, 100)
-  }
+      videoRef.current?.play();
+      setIsVideoPlaying(true);
+    }, 100);
+  };
 
   const enterFullscreen = async () => {
     if (containerRef.current && !isFullscreen) {
       try {
-        await containerRef.current.requestFullscreen()
+        await containerRef.current.requestFullscreen();
       } catch (error) {
-        console.error('Error entering fullscreen:', error)
+        console.error("Error entering fullscreen:", error);
       }
     }
-  }
+  };
 
   const exitFullscreen = async () => {
     if (isFullscreen) {
       try {
-        await document.exitFullscreen()
+        await document.exitFullscreen();
       } catch (error) {
-        console.error('Error exiting fullscreen:', error)
+        console.error("Error exiting fullscreen:", error);
       }
     }
-  }
+  };
 
   const handleDoubleClick = () => {
     if (isFullscreen) {
-      exitFullscreen()
+      exitFullscreen();
     } else {
-      enterFullscreen()
+      enterFullscreen();
     }
-  }
+  };
 
   return (
     <section
@@ -112,7 +112,7 @@ const VideoShowcaseSection: React.FC<VideoShowcaseSectionProps> = ({
         <div
           ref={containerRef}
           className={`relative bg-gray-900 rounded-3xl md:rounded-[50px] overflow-hidden aspect-video mx-auto ${
-            isFullscreen ? 'fixed inset-0 z-50 rounded-none' : 'max-w-7xl'
+            isFullscreen ? "fixed inset-0 z-50 rounded-none" : "max-w-7xl"
           }`}
         >
           {/* Show thumbnail preview until play is clicked */}
@@ -120,7 +120,7 @@ const VideoShowcaseSection: React.FC<VideoShowcaseSectionProps> = ({
             <>
               <video
                 className="w-full h-full object-cover"
-                src={THUMBNAIL_URL}
+                src="/videos//ULÔ_SHORT_FILM.mp4"
                 autoPlay
                 muted
                 loop
@@ -178,7 +178,7 @@ const VideoShowcaseSection: React.FC<VideoShowcaseSectionProps> = ({
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default VideoShowcaseSection
+export default VideoShowcaseSection;
