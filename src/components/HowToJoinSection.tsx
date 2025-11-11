@@ -1,41 +1,46 @@
-import React, { useState, useRef, useImperativeHandle, forwardRef } from 'react'
-import { Button } from '@/components/ui/button'
-import MailerLiteModal from '@/components/mailer-lite/MailerLiteModal'
+import React, {
+  useState,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
+import { Button } from "@/components/ui/button";
+import MailerLiteModal from "@/components/mailer-lite/MailerLiteModal";
 
 export interface HowToJoinSectionRef {
-  highlightCards: () => void
+  highlightCards: () => void;
 }
 
 const HowToJoinSection = forwardRef<HowToJoinSectionRef>((props, ref) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserType, setSelectedUserType] = useState<
-    'host' | 'guest' | 'associate'
-  >('host')
-  const [isHighlighting, setIsHighlighting] = useState(false)
+    "host" | "guest" | "associate"
+  >("host");
+  const [isHighlighting, setIsHighlighting] = useState(false);
 
-  const hostCardRef = useRef<HTMLDivElement>(null)
-  const guestCardRef = useRef<HTMLDivElement>(null)
-  const associateCardRef = useRef<HTMLDivElement>(null)
+  const hostCardRef = useRef<HTMLDivElement>(null);
+  const guestCardRef = useRef<HTMLDivElement>(null);
+  const associateCardRef = useRef<HTMLDivElement>(null);
 
-  const handleUserTypeClick = (userType: 'host' | 'guest' | 'associate') => {
-    setSelectedUserType(userType)
-    setIsModalOpen(true)
-  }
+  const handleUserTypeClick = (userType: "host" | "guest" | "associate") => {
+    setSelectedUserType(userType);
+    setIsModalOpen(true);
+  };
 
   const closeModal = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   const highlightCards = () => {
-    setIsHighlighting(true)
+    setIsHighlighting(true);
     setTimeout(() => {
-      setIsHighlighting(false)
-    }, 1000)
-  }
+      setIsHighlighting(false);
+    }, 1000);
+  };
 
   useImperativeHandle(ref, () => ({
-    highlightCards
-  }))
+    highlightCards,
+  }));
 
   return (
     <section className="px-5 px-" id="how-to-join-section">
@@ -49,130 +54,90 @@ const HowToJoinSection = forwardRef<HowToJoinSectionRef>((props, ref) => {
           {/* Host Column */}
           <div
             ref={hostCardRef}
-            className={`bg-white rounded-lg shadow-lg p-8 border border-gray-200 hover:shadow-xl transition-all duration-300 ${
+            className={`relative bg-white rounded-xl shadow-lg p-8 border border-gray-200 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center h-full ${
               isHighlighting
-                ? 'ring-4 ring-primary/50 shadow-2xl transform scale-105 bg-primary/5'
-                : ''
+                ? "ring-4 ring-primary/50 shadow-2xl transform scale-105 bg-primary/5"
+                : ""
             }`}
           >
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Host</h3>
-                <p className="text-lg text-gray-600 mb-4">
-                  Share your home. <br />
-                  Earn from it.
-                </p>
-                <p className="text-gray-700 leading-relaxed">
-                  Become a Host on Ulô and open your doors to the world. List
-                  your property, welcome global guests, and earn income while
-                  Ulô handles bookings, payments, and support.
-                </p>
-              </div>
-              <button
-                onClick={() => handleUserTypeClick('host')}
-                className="ml-4 p-2 rounded-full bg-primary hover:bg-primary/90 text-white transition-colors duration-200"
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
+            <div className="flex-1 flex flex-col justify-start">
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Host</h3>
+              <p className="text-lg text-gray-600 mb-3">
+                Share your home. <br /> Earn from it.
+              </p>
+              <p className="text-gray-700 leading-relaxed mb-6">
+                Become a Host on Ulô and open your doors to the world. List your
+                property, welcome global guests, and earn income while Ulô
+                handles bookings, payments, and support.
+              </p>
             </div>
+
+            <button
+              onClick={() => handleUserTypeClick("host")}
+              className="mt-auto w-full py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-all duration-200"
+            >
+              Become a Host
+            </button>
           </div>
 
           {/* Guest Column */}
           <div
             ref={guestCardRef}
-            className={`bg-white rounded-lg shadow-lg p-8 border border-gray-200 hover:shadow-xl transition-all duration-300 ${
+            className={`relative bg-white rounded-xl shadow-lg p-8 border border-gray-200 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center h-full ${
               isHighlighting
-                ? 'ring-4 ring-primary/50 shadow-2xl transform scale-105 bg-primary/5'
-                : ''
+                ? "ring-4 ring-primary/50 shadow-2xl transform scale-105 bg-primary/5"
+                : ""
             }`}
           >
-            <div className="flex justify-between items-center  mb-6">
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Guest</h3>
-                <p className="text-lg text-gray-600 mb-4">
-                  Explore Africa. Stay connected.
-                </p>
-                <p className="text-gray-700 leading-relaxed">
-                  Discover unique homes, authentic stays, and cultural
-                  experiences across Africa. With Ulô, booking is simple,
-                  payments are secure, and every trip feels like home.
-                </p>
-              </div>
-              <button
-                onClick={() => handleUserTypeClick('guest')}
-                className="ml-4 p-2 rounded-full bg-primary hover:bg-primary/90 text-white transition-colors duration-200"
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
+            <div className="flex-1 flex flex-col justify-start">
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Guest</h3>
+              <p className="text-lg text-gray-600 mb-3">
+                Explore Africa. Stay connected.
+              </p>
+              <p className="text-gray-700 leading-relaxed mb-6">
+                Discover unique homes, authentic stays, and cultural experiences
+                across Africa. With Ulô, booking is simple, payments are secure,
+                and every trip feels like home.
+              </p>
             </div>
+
+            <button
+              onClick={() => handleUserTypeClick("guest")}
+              className="mt-auto w-full py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-all duration-200"
+            >
+              Join Now
+            </button>
           </div>
 
           {/* Associate Column */}
           <div
             ref={associateCardRef}
-            className={`bg-white rounded-lg shadow-lg p-8 border border-gray-200 hover:shadow-xl transition-all duration-300 ${
+            className={`relative bg-white rounded-xl shadow-lg p-8 border border-gray-200 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center h-full ${
               isHighlighting
-                ? 'ring-4 ring-primary/50 shadow-2xl transform scale-105 bg-primary/5'
-                : ''
+                ? "ring-4 ring-primary/50 shadow-2xl transform scale-105 bg-primary/5"
+                : ""
             }`}
           >
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  Associate
-                </h3>
-                <p className="text-lg text-gray-600 mb-4">
-                  Represent. Guide. Earn Globally.
-                </p>
-                <p className="text-gray-700 leading-relaxed">
-                  Step into the world of hospitality as an Ulô Certified
-                  Associate. Build global guest connections, represent Ulô
-                  professionally, work remotely, and earn a substantial income.
-                </p>
-              </div>
-              <button
-                onClick={() => handleUserTypeClick('associate')}
-                className="ml-4 p-2 rounded-full bg-primary hover:bg-primary/90 text-white transition-colors duration-200"
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
+            <div className="flex-1 flex flex-col justify-start">
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                Associate
+              </h3>
+              <p className="text-lg text-gray-600 mb-3">
+                Represent. Guide. Earn Globally.
+              </p>
+              <p className="text-gray-700 leading-relaxed mb-6">
+                Step into the world of hospitality as an Ulô Certified
+                Associate. Build global guest connections, represent Ulô
+                professionally, work remotely, and earn a substantial income.
+              </p>
             </div>
+
+            <button
+              onClick={() => handleUserTypeClick("associate")}
+              className="mt-auto w-full py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-all duration-200"
+            >
+              Become an Associate
+            </button>
           </div>
         </div>
       </div>
@@ -184,7 +149,7 @@ const HowToJoinSection = forwardRef<HowToJoinSectionRef>((props, ref) => {
         userType={selectedUserType}
       />
     </section>
-  )
-})
+  );
+});
 
-export default HowToJoinSection
+export default HowToJoinSection;

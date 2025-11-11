@@ -1,198 +1,198 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import React, { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ServiceSlide {
-  id: number
-  title: string
-  description: string
-  contentType: 'video' | 'image' | 'component'
-  videoUrl?: string
-  imageUrl?: string
-  component?: React.ReactNode
+  id: number;
+  title: string;
+  description: string;
+  contentType: "video" | "image" | "component";
+  videoUrl?: string;
+  imageUrl?: string;
+  component?: React.ReactNode;
   // SpotlightCard specific properties
-  icon?: string | React.ReactNode
-  spotlightTitle?: string
-  spotlightDescription?: string
+  icon?: string | React.ReactNode;
+  spotlightTitle?: string;
+  spotlightDescription?: string;
 }
 
 interface AncillaryServicesShowcaseProps {
-  slides: ServiceSlide[]
-  sectionTitle: string
+  slides: ServiceSlide[];
+  sectionTitle: string;
 }
 
 const AncillaryServicesShowcase: React.FC<AncillaryServicesShowcaseProps> = ({
   slides,
-  sectionTitle
+  sectionTitle,
 }) => {
-  const [activeSlide, setActiveSlide] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
-  const [progress, setProgress] = useState(0) // 0 to 100
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
-  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const progressRef = useRef<number>(0)
-  const animationFrameRef = useRef<number | null>(null)
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [progress, setProgress] = useState(0); // 0 to 100
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const progressRef = useRef<number>(0);
+  const animationFrameRef = useRef<number | null>(null);
 
   // Video playback control refs
-  const videoRef = useRef<HTMLVideoElement | null>(null)
-  const hasEnteredViewportOnceRef = useRef<boolean>(false)
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const hasEnteredViewportOnceRef = useRef<boolean>(false);
 
   // Clear any existing timer
   const clearTimer = () => {
     if (timerRef.current) {
-      clearTimeout(timerRef.current)
-      timerRef.current = null
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
     }
-  }
+  };
 
   // Clear pause timeout
   const clearPauseTimeout = () => {
     if (pauseTimeoutRef.current) {
-      clearTimeout(pauseTimeoutRef.current)
-      pauseTimeoutRef.current = null
+      clearTimeout(pauseTimeoutRef.current);
+      pauseTimeoutRef.current = null;
     }
-  }
+  };
 
   // Handle slide change with animation
   const handleSlideChange = (newSlideIndex: number, isManualClick = false) => {
-    if (newSlideIndex === activeSlide) return
+    if (newSlideIndex === activeSlide) return;
 
-    clearTimer()
-    clearPauseTimeout()
+    clearTimer();
+    clearPauseTimeout();
     if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current)
-      animationFrameRef.current = null
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
     }
-    setIsTransitioning(true)
-    setProgress(0)
-    progressRef.current = 0
+    setIsTransitioning(true);
+    setProgress(0);
+    progressRef.current = 0;
 
     // Small delay to trigger fade out, then change slide
     setTimeout(() => {
-      setActiveSlide(newSlideIndex)
-      setProgress(0)
-      progressRef.current = 0
+      setActiveSlide(newSlideIndex);
+      setProgress(0);
+      progressRef.current = 0;
       // Reset transition state after fade in completes
       setTimeout(() => {
-        setIsTransitioning(false)
-      }, 300)
-    }, 150)
+        setIsTransitioning(false);
+      }, 300);
+    }, 150);
 
     // If manual click, pause auto-advance for 20 seconds
     if (isManualClick) {
-      setIsPaused(true)
+      setIsPaused(true);
       pauseTimeoutRef.current = setTimeout(() => {
-        setIsPaused(false)
-      }, 3000) // 3 seconds pause
+        setIsPaused(false);
+      }, 3000); // 3 seconds pause
     }
-  }
+  };
 
   // Progress bar animation and auto-advance (10 seconds)
   useEffect(() => {
-    let startTimestamp: number | null = null
-    const duration = 3000 // 3 seconds
+    let startTimestamp: number | null = null;
+    const duration = 3000; // 3 seconds
 
     function animateProgress(timestamp: number) {
-      if (isPaused) return
-      if (startTimestamp === null) startTimestamp = timestamp
-      const elapsed = timestamp - startTimestamp
-      let percent = Math.min((elapsed / duration) * 100, 100)
-      setProgress(percent)
-      progressRef.current = percent
+      if (isPaused) return;
+      if (startTimestamp === null) startTimestamp = timestamp;
+      const elapsed = timestamp - startTimestamp;
+      let percent = Math.min((elapsed / duration) * 100, 100);
+      setProgress(percent);
+      progressRef.current = percent;
       if (percent < 100) {
-        animationFrameRef.current = requestAnimationFrame(animateProgress)
+        animationFrameRef.current = requestAnimationFrame(animateProgress);
       } else {
         // Advance to next slide
-        const nextSlide = (activeSlide + 1) % slides.length
-        handleSlideChange(nextSlide)
+        const nextSlide = (activeSlide + 1) % slides.length;
+        handleSlideChange(nextSlide);
       }
     }
 
     // Reset progress on slide change
-    setProgress(0)
-    progressRef.current = 0
+    setProgress(0);
+    progressRef.current = 0;
     if (!isPaused) {
       if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
+        cancelAnimationFrame(animationFrameRef.current);
       }
-      animationFrameRef.current = requestAnimationFrame(animateProgress)
+      animationFrameRef.current = requestAnimationFrame(animateProgress);
     }
     return () => {
       if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-        animationFrameRef.current = null
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
       }
-    }
-  }, [activeSlide, slides, isPaused])
+    };
+  }, [activeSlide, slides, isPaused]);
 
   // Clean up timers and animation frame on component unmount
   useEffect(() => {
     return () => {
-      clearTimer()
-      clearPauseTimeout()
+      clearTimer();
+      clearPauseTimeout();
       if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-        animationFrameRef.current = null
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
       }
-    }
-  }, [])
+    };
+  }, []);
 
   // Viewport-based video playback control
   useEffect(() => {
-    const videoEl = videoRef.current
-    if (!videoEl || typeof IntersectionObserver === 'undefined') {
-      return
+    const videoEl = videoRef.current;
+    if (!videoEl || typeof IntersectionObserver === "undefined") {
+      return;
     }
 
     const applyPlayback = (shouldPlay: boolean) => {
-      const v = videoRef.current
-      if (!v) return
-      const currentlyPlaying = !v.paused && !v.ended
+      const v = videoRef.current;
+      if (!v) return;
+      const currentlyPlaying = !v.paused && !v.ended;
       if (shouldPlay && !currentlyPlaying) {
-        const playPromise = v.play()
-        if (playPromise && typeof (playPromise as any).catch === 'function') {
-          ;(playPromise as Promise<void>).catch(() => {})
+        const playPromise = v.play();
+        if (playPromise && typeof (playPromise as any).catch === "function") {
+          (playPromise as Promise<void>).catch(() => {});
         }
       } else if (!shouldPlay && currentlyPlaying) {
-        v.pause()
+        v.pause();
       }
-    }
+    };
 
     const entryObserver = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0]
+        const entry = entries[0];
         if (entry.isIntersecting) {
-          hasEnteredViewportOnceRef.current = true
-          applyPlayback(true)
+          hasEnteredViewportOnceRef.current = true;
+          applyPlayback(true);
         }
       },
       { root: null, threshold: 0 }
-    )
+    );
 
     const proximityObserver = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0]
+        const entry = entries[0];
         if (!entry.isIntersecting) {
-          applyPlayback(false)
+          applyPlayback(false);
         } else if (hasEnteredViewportOnceRef.current) {
-          applyPlayback(true)
+          applyPlayback(true);
         }
       },
-      { root: null, rootMargin: '50px 0px 50px 0px', threshold: 0 }
-    )
+      { root: null, rootMargin: "50px 0px 50px 0px", threshold: 0 }
+    );
 
-    entryObserver.observe(videoEl)
-    proximityObserver.observe(videoEl)
+    entryObserver.observe(videoEl);
+    proximityObserver.observe(videoEl);
 
     return () => {
-      entryObserver.disconnect()
-      proximityObserver.disconnect()
-    }
-  }, [])
+      entryObserver.disconnect();
+      proximityObserver.disconnect();
+    };
+  }, []);
 
   const renderVideoContent = () => {
     return (
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col  items-center">
         <div className="w-full max-w-[700px] h-[500px] sm:h-[240px] md:h-[580px] mb-4 sm:mb-6">
           <video
             ref={videoRef}
@@ -201,20 +201,17 @@ const AncillaryServicesShowcase: React.FC<AncillaryServicesShowcaseProps> = ({
             muted
             playsInline
           >
-            <source
-              src="https://res.cloudinary.com/dfcsaxtru/video/upload/v1756200098/ANCILARY_qv0zvj.mp4"
-              type="video/mp4"
-            />
+            <source src="/public/videos/ANCILARY.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <section
-      className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
+      className="py-12  sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
       id="services-section"
     >
       <div className="max-w-7xl mx-auto">
@@ -261,11 +258,11 @@ const AncillaryServicesShowcase: React.FC<AncillaryServicesShowcaseProps> = ({
                       <div
                         className="h-full bg-gray-900 rounded-full transition-all ease-linear"
                         style={{
-                          width: index === activeSlide ? `${progress}%` : '0%',
-                          transitionProperty: 'width',
+                          width: index === activeSlide ? `${progress}%` : "0%",
+                          transitionProperty: "width",
                           transitionDuration:
-                            index === activeSlide ? '0ms' : '300ms',
-                          transformOrigin: 'left'
+                            index === activeSlide ? "0ms" : "300ms",
+                          transformOrigin: "left",
                         }}
                       />
                     </div>
@@ -299,7 +296,7 @@ const AncillaryServicesShowcase: React.FC<AncillaryServicesShowcaseProps> = ({
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default AncillaryServicesShowcase
+export default AncillaryServicesShowcase;
