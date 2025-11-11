@@ -30,7 +30,7 @@ export const businessSlides: BusinessSlide[] = [
     description:
       "Don’t just visit — connect. Our trusted on-ground associates help you explore, belong, and make the most of every moment in Africa.",
     videoUrl:
-      "https://res.cloudinary.com/dfcsaxtru/video/upload/q_40/v1752586704/GUEST_XPE_rwhehv.mp4",
+      "/videos/ULÔ-ASSOCIATE.mp4",
   },
   {
     id: 3,
