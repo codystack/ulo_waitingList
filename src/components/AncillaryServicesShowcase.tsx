@@ -201,7 +201,7 @@ const AncillaryServicesShowcase: React.FC<AncillaryServicesShowcaseProps> = ({
             muted
             playsInline
           >
-            <source src="/public/videos/ANCILARY.mp4" type="video/mp4" />
+            <source src="/videos/ANCILARY.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
