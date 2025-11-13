@@ -1,37 +1,39 @@
-import React, { useRef } from "react";
-import Header from "@/components/Header";
+// import { useRef } from "react";
+// import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import VideoShowcaseSection from "@/components/VideoShowcaseSection";
-import VideoContentSection from "@/components/VideoContentSection";
-import FeaturesSection from "@/components/FeaturesSection";
-import BusinessShowcaseSection from "@/components/BusinessShowcaseSection";
-import HowToJoinSection, {
-  HowToJoinSectionRef,
-} from "@/components/HowToJoinSection";
-import CTASection from "@/components/CTASection";
-import FAQSection from "@/components/FAQSection";
-import Footer from "@/components/Footer";
-import ScrollDotsSection from "@/components/ScrollDotsSection";
-import AncillaryServicesShowcase from "@/components/AncillaryServicesShowcase";
-import { heroContent, businessSlides, flippedSlides } from "@/data";
-import MusicToggleButton from "@/components/MusicToggleButton";
-import { useIsMobile } from "@/hooks/use-mobile";
+// import VideoContentSection from "@/components/VideoContentSection";
+// import FeaturesSection from "@/components/FeaturesSection";
+// import BusinessShowcaseSection from "@/components/BusinessShowcaseSection";
+// import { HowToJoinSectionRef } from "@/components/HowToJoinSection";
+// import HowToJoinSection, {
+//   HowToJoinSectionRef,
+// } from "@/components/HowToJoinSection";
+// import CTASection from "@/components/CTASection";
+// import FAQSection from "@/components/FAQSection";
+// import Footer from "@/components/Footer";
+// import ScrollDotsSection from "@/components/ScrollDotsSection";
+// import AncillaryServicesShowcase from "@/components/AncillaryServicesShowcase";
+import { heroContent } from "@/data";
+// import { heroContent, businessSlides, flippedSlides } from "@/data";
+// import MusicToggleButton from "@/components/MusicToggleButton";
+// import { useIsMobile } from "@/hooks/use-mobile";
 
 const Index = () => {
-  const isMobile = useIsMobile();
-  console.log(isMobile);
-  const howToJoinSectionRef = useRef<HowToJoinSectionRef>(null);
+  // const isMobile = useIsMobile();
+  // console.log(isMobile);
+  // const howToJoinSectionRef = useRef<HowToJoinSectionRef>(null);
   return (
     <div className="min-h-screen bg-white">
-      <Header howToJoinSectionRef={howToJoinSectionRef} />
+      {/* <Header howToJoinSectionRef={howToJoinSectionRef} /> */}
 
       <div className="">
         <HeroSection heroContent={heroContent} />
 
-        <VideoShowcaseSection heroContent={heroContent} />
+        {/* <VideoShowcaseSection heroContent={heroContent} /> */}
 
-        <ScrollDotsSection />
-
+        {/* <ScrollDotsSection /> */}
+        {/* 
         <VideoContentSection
           title1="Hands‑Free Management"
           subtitle1="From bookings to check-outs, Ulô handles every detail. This means you earn effortlessly, while your guests enjoy a flawless stay."
@@ -45,9 +47,9 @@ const Index = () => {
             "Seamless check-in, check-out & cleaning",
           ]}
           sectionId="handsfree-section"
-        />
+        /> */}
 
-        <VideoContentSection
+        {/* <VideoContentSection
           title1="Xperience Gallery"
           subtitle1="From vibrant cities to local secrets, Ulô uncovers it all, helping you explore, connect, and make travel unforgettable."
           video1="/videos/XPERIENCE-GALLERY-1.mp4"
@@ -60,9 +62,9 @@ const Index = () => {
             "Feel the home’s aura through video reels before you book.",
           ]}
           sectionId="xperience-section"
-        />
+        /> */}
 
-        <VideoContentSection
+        {/* <VideoContentSection
           title1="Borderless Payment"
           subtitle1="Pay with confidence. Ulô Cowries makes every transaction, from booking to last-minute extras, simple, seamless, and secure."
           video1="/videos/BORDERLESS-PAYMENT1.mp4"
@@ -75,9 +77,9 @@ const Index = () => {
             "Withdraw in any African currency with ease",
           ]}
           sectionId="borderless-section"
-        />
+        /> */}
 
-        <VideoContentSection
+        {/* <VideoContentSection
           title1="Ulô Associates"
           subtitle1="Your personal city companion. Managing your stay, guiding your steps, and making every moment smoother."
           video1="/videos/ULÔ-ASSOCIATE.mp4"
@@ -91,16 +93,16 @@ const Index = () => {
           ]}
           sectionId="associates-section"
         />
-        <FeaturesSection />
+        <FeaturesSection /> */}
 
         {/* <BusinessShowcaseSection businessSlides={businessSlides} /> */}
 
-        <AncillaryServicesShowcase
+        {/* <AncillaryServicesShowcase
           slides={flippedSlides}
           sectionTitle="Go Beyond the Stay"
-        />
+        /> */}
 
-        <VideoContentSection
+        {/* <VideoContentSection
           title1="Guest Handbook"
           subtitle1="Your passport to belonging. This city companion has everything you need to explore African cities with confidence, from key phrases to etiquette and safe spots."
           video1="/videos/HANDBOOK.mp4"
@@ -116,9 +118,9 @@ const Index = () => {
 
         <HowToJoinSection ref={howToJoinSectionRef} />
 
-        <FAQSection />
+        <FAQSection /> */}
 
-        <Footer />
+        {/* <Footer /> */}
       </div>
       {/* 
       <MusicToggleButton containerClassName="fixed left-8 bottom-8 z-50 hover:opacity-100 opacity-70" /> */}

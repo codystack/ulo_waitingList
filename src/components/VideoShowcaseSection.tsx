@@ -96,18 +96,18 @@ const VideoShowcaseSection: React.FC<VideoShowcaseSectionProps> = ({
 
   return (
     <section
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"
+      className="py-5 px-4 sm:px-6 lg:px-8 bg-gray-50"
       id="video-section"
     >
       <div className="max-w-20xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-semibold text-primary mb-4">
-            This is Africa, See for Yourself
+            This is Africa, See for Yourself.
           </h2>
-          <p className="text-xl  text-gray-600">
+          {/* <p className="text-xl  text-gray-600">
             Not the Africa of postcards
             <span className="block">but the one you’ve never experienced.</span>
-          </p>
+          </p> */}
         </div>
         <div
           ref={containerRef}
