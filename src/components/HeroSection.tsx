@@ -5,6 +5,7 @@ import { useMobileVideoPlayback } from "../hooks/useMobileVideoPlayback";
 import Modal from "@/components/Modal";
 import HeroForm from "@/components/HeroForm";
 import VideoShowcaseSection from "@/components/VideoShowcaseSection";
+import { FaXTwitter, FaFacebookF, FaInstagram } from "react-icons/fa6";
 
 interface HeroSectionProps {
   heroContent: HeroContent;
@@ -43,8 +44,48 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroContent }) => {
       />
       <div className="absolute inset-0 bg-black/20 z-10"></div>
 
+      {/* Logo & Social Icons */}
+      <div className="w-full flex justify-center absolute top-7 left-0 z-30">
+        <div className="flex items-center justify-between w-full max-w-7xl px-6 py-6">
+          {/* Logo */}
+          <img
+            src="/ulo-log-alt.png"
+            alt="Ulo Logo"
+            className="w-[11rem] object-contain"
+          />
+
+          {/* Social Icons */}
+          <div className="flex items-center gap-6 text-white text-[1.4rem]">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#8B5E3C] transition-colors duration-300"
+            >
+              <FaFacebookF />
+            </a>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#8B5E3C] transition-colors duration-300"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#8B5E3C] transition-colors duration-300"
+            >
+              <FaXTwitter />
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Content */}
-      <div className="relative z-20 max-w-sm md:max-w-5xl p-5 mx-auto mt-45 text-center">
+      <div className="relative z-20 max-w-sm md:max-w-5xl p-5 mx-auto mt-[6rem] text-center">
         <BlurText
           suffix={["Africa", "Lagos", "Durban", "Accra", "Nairobi", "Kigali"]}
           cycleInterval={3000}
@@ -62,32 +103,20 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroContent }) => {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
+          {/* Join the Movement (solid white) */}
           <button
             onClick={() => setIsFormModalOpen(true)}
-            className="bg-[#8B5E3C] text-white px-6 py-3 rounded-[7px] text-[17px] shadow-md hover:bg-[#8B5E3C]/90 transition-all"
+            className="bg-white text-[#8B5E3C] px-6 py-3 rounded-[7px] text-[17px] hover:bg-gray-100 transition-all"
           >
             Join the Movement
           </button>
 
+          {/* Watch Video (white outline) */}
           <button
             onClick={() => setIsVideoModalOpen(true)}
-            className="bg-white text-[#8B5E3C] px-6 py-3 border border-[#8B5E3C] text-[17px] rounded-[7px] shadow-md hover:bg-gray-100 transition-all"
+            className="bg-transparent border border-white text-white px-6 py-3 text-[17px] rounded-[7px] hover:bg-white/10 transition-all"
           >
             Watch Video
-          </button>
-        </div>
-
-        {/* Down Arrow */}
-        <div className="max-w-14 mx-auto animate-bounce duration-1000">
-          <button
-            onClick={handleScrollToVideo}
-            aria-label="Scroll to video section"
-          >
-            <img
-              src="/icons/ARROW.svg"
-              alt=""
-              className="scale-125 rotate-180"
-            />
           </button>
         </div>
       </div>
